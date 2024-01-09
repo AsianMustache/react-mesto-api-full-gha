@@ -109,6 +109,7 @@ exports.login = async (req, res, next) => {
     res.cookie("jwt", token, {
       maxAge: 3600000 * 24 * 7,
       httpOnly: true,
+      sameSite: true,
     });
 
     // res.status(http2.constants.HTTP_STATUS_OK).send({
@@ -116,7 +117,9 @@ exports.login = async (req, res, next) => {
     //   token,
     //   message: "Аутентификация прошла успешно",
     // });
-    res.status(http2.constants.HTTP_STATUS_OK).send(user.toJSON());
+    res
+      .status(http2.constants.HTTP_STATUS_OK)
+      .send({ token, email: user.email, id: user._id });
   } catch (err) {
     next(err);
   }

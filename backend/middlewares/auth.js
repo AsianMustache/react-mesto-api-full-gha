@@ -3,9 +3,10 @@ const UnauthorizedError = require("../utils/UnauthorizedError");
 
 // eslint-disable-next-line consistent-return
 const auth = (req, res, next) => {
-  const token = req.headers.authorization
-    ? req.headers.authorization.replace("Bearer ", "")
-    : null;
+  // const token = req.headers.authorization
+  const token = req.cookies.jwt;
+  // ? req.headers.authorization.replace("Bearer ", "")
+  // : null;
   if (!token) {
     return next(new UnauthorizedError("Требуется авторизация"));
   }
