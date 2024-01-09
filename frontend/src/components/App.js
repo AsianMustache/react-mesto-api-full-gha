@@ -253,20 +253,20 @@ function App() {
     }
   }, [loggedIn]);
 
-  // useEffect(() => {
-  //   const token = localStorage.getItem("token");
-  //   if (token) {
-  //     apiAuthorize
-  //       .checkToken(token)
-  //       .then((res) => {
-  //         if (res) {
-  //           setLoggedIn(true);
-  //           setUserEmail(res.data.email);
-  //         }
-  //       })
-  //       .catch((err) => console.log(err));
-  //   }
-  // }, []);
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      apiAuthorize
+        .checkToken(token)
+        .then((res) => {
+          if (res) {
+            setLoggedIn(true);
+            setUserEmail(res.email);
+          }
+        })
+        .catch((err) => console.log(err));
+    }
+  }, []);
 
   useEffect(() => {
     if (loggedIn) navigate("/");

@@ -38,12 +38,15 @@ module.exports = function (req, res, next) {
     "https://api.mestofan.nomoredomainsmonster.ru",
     "http://mestofan.nomoredomainsmonster.ru",
     "http://api.mestofan.nomoredomainsmonster.ru",
+    "http://localhost:3000/users/me",
+    "http://localhost:3000/cards",
   ];
 
   const { origin } = req.headers;
 
   if (allowedCors.includes(origin)) {
     res.header("Access-Control-Allow-Origin", origin);
+    res.header("Access-Control-Allow-Credentials", true);
   }
 
   res.header("Access-Control-Allow-Methods", "GET,HEAD,PUT,PATCH,POST,DELETE");

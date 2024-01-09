@@ -17,6 +17,7 @@ class Api {
   getAllCards() {
     return this._sendRequest(`${this._url}/cards`, {
       method: "GET",
+      credentials: "include",
       headers: this._headers,
     });
   }
@@ -24,6 +25,7 @@ class Api {
   getApiUserInfo() {
     return this._sendRequest(`${this._url}/users/me`, {
       method: "GET",
+      credentials: "include",
       headers: this._headers,
     });
   }
@@ -31,6 +33,7 @@ class Api {
   editApiProfile(name, about) {
     return this._sendRequest(`${this._url}/users/me`, {
       method: "PATCH",
+      credentials: "include",
       headers: this._headers,
       body: JSON.stringify({
         name: name,
@@ -42,6 +45,7 @@ class Api {
   editAvatar(avatarUrl) {
     return this._sendRequest(`${this._url}/users/me/avatar`, {
       method: "PATCH",
+      credentials: "include",
       headers: this._headers,
       body: JSON.stringify({
         avatar: avatarUrl,
@@ -52,6 +56,7 @@ class Api {
   addNewCardApi(name, link) {
     return this._sendRequest(`${this._url}/cards`, {
       method: "POST",
+      credentials: "include",
       headers: this._headers,
       body: JSON.stringify({
         name: name,
@@ -66,6 +71,7 @@ class Api {
 
     return fetch(url, {
       method: method,
+      credentials: "include",
       headers: this._headers,
     }).then((response) => {
       if (!response.ok) {
@@ -80,6 +86,7 @@ class Api {
   deleteCardApi(cardId) {
     return this._sendRequest(`${this._url}/cards/${cardId}`, {
       method: "DELETE",
+      credentials: "include",
       headers: this._headers,
     });
   }
