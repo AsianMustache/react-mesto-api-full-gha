@@ -14,7 +14,7 @@ import Login from "./Login";
 import Register from "./Register";
 import ProtectedRoute from "./ProtectedRoute";
 import * as apiAuthorize from "../utils/apiAuthorize";
-// import { setToken } from "../utils/token";
+import { setToken } from "../utils/token";
 import InfoTooltip from "./InfoTooltip";
 
 function App() {
@@ -53,30 +53,14 @@ function App() {
     }, 1500);
   };
 
-  // const handleLogin = async (email, password) => {
-  //   try {
-  //     const data = await apiAuthorize.authorize(email, password);
-  //     if (data.token) {
-  //       setToken(data.token);
-  //       setLoggedIn(true);
-  //       setUserEmail(email);
-  //       localStorage.setItem("loggedIn", true);
-  //       navigate("/");
-  //     }
-  //   } catch (err) {
-  //     console.log(err);
-  //     openInfotooltip({
-  //       type: "error",
-  //       text: "Что-то пошло не так! Попробуйте ещё раз.",
-  //     });
-  //   }
-  // };
   const handleLogin = async (email, password) => {
     try {
       const data = await apiAuthorize.authorize(email, password);
-      if (data) {
+      if (data.token) {
+        setToken(data.token);
         setLoggedIn(true);
         setUserEmail(email);
+        localStorage.setItem("loggedIn", true);
         navigate("/");
       }
     } catch (err) {
@@ -109,19 +93,10 @@ function App() {
       });
   };
 
-  // const onSignOut = () => {
-  //   localStorage.clear();
-  //   setLoggedIn(false);
-  //   navigate("/sign-in");
-  // };
   const onSignOut = () => {
-    apiAuthorize
-      .signOut()
-      .then(() => {
-        setLoggedIn(false);
-        navigate("/sign-in");
-      })
-      .catch((err) => console.log(err));
+    localStorage.clear();
+    setLoggedIn(false);
+    navigate("/sign-in");
   };
 
   function handleCardClick(card) {
@@ -279,17 +254,18 @@ function App() {
   }, [loggedIn]);
 
   useEffect(() => {
-    // const token = localStorage.getItem("token");
-
-    apiAuthorize
-      .checkToken()
-      .then((res) => {
-        if (res) {
-          setLoggedIn(true);
-          setUserEmail(res.email);
-        }
-      })
-      .catch((err) => console.log(err));
+    const token = localStorage.getItem("token");
+    if (token) {
+      apiAuthorize
+        .checkToken(token)
+        .then((res) => {
+          if (res) {
+            setLoggedIn(true);
+            setUserEmail(res.email);
+          }
+        })
+        .catch((err) => console.log(err));
+    }
   }, []);
 
   useEffect(() => {
