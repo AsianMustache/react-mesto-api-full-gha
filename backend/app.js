@@ -1,5 +1,5 @@
 const express = require("express");
-
+const cookieParser = require("cookie-parser");
 const mongoose = require("mongoose");
 const { errors: celebrateErrors } = require("celebrate");
 const router = require("./routes/index");
@@ -23,6 +23,7 @@ mongoose
   });
 
 app.use(cors);
+app.use(cookieParser());
 app.use(express.json());
 app.use("/", router);
 
