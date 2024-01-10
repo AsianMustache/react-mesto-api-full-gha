@@ -1,5 +1,5 @@
 // export const BASE_URL = 'https://auth.nomoreparties.co';
-export const BASE_URL = "http://localhost:3000";
+export const BASE_URL = "http://api.mestofan.nomoredomainsmonster.ru/";
 
 function sendRequest(res) {
   if (res.ok) {
