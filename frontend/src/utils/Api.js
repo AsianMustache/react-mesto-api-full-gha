@@ -93,7 +93,7 @@ class Api {
 }
 
 const api = new Api({
-  url: "https://api.mestofan.nomoredomainsmonster.ru/",
+  url: "https://api.mestofan.nomoredomainsmonster.ru",
   headers: {
     "Content-Type": "application/json",
   },
