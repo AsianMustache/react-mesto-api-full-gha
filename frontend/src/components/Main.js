@@ -72,18 +72,6 @@ function Main({
           );
         })}
       </section>
-      {/* <section className="elements">
-        {Array.isArray(cards) &&
-          cards.map((card, index) => (
-            <Card
-              card={card}
-              key={card._id}
-              onCardClick={onCardClick}
-              onCardLike={onCardLike}
-              onDeletePopupClick={onDeletePopupClick}
-            />
-          ))}
-      </section> */}
     </main>
   );
 }
