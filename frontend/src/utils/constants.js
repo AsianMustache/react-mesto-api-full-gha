@@ -9,7 +9,7 @@ const validationConfig = {
 
 const optionsApi = {
   // url: "https://mesto.nomoreparties.co/v1/cohort-76",
-  url: "http://api.mestofan.nomoredomainsmonster.ru/",
+  url: "https://api.mestofan.nomoredomainsmonster.ru/",
   headers: {
     // authorization: "83dc9433-9b9b-4fa6-92f5-5a62f5b1db23",
     "Content-Type": "application/json",
