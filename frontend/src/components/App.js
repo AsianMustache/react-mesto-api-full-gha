@@ -232,7 +232,6 @@ function App() {
       api
         .getApiUserInfo()
         .then((userData) => {
-          console.log("Данные пользователя при первом запросе:", userData);
           setCurrentUser(userData);
         })
         .catch((err) => {
