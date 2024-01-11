@@ -63,7 +63,6 @@
 // }
 
 // export default Card;
-
 import React from "react";
 import trash from "../images/Trash.svg";
 import like from "../images/favorite.svg";
@@ -111,14 +110,18 @@ function Card({ card, onCardClick, onCardLike, onDeletePopupClick }) {
         <h2 className="element__group-title">{card.name}</h2>
         <button
           type="button"
-          className={`element__group-favorite ${
-            card.likes.some((userId) => userId === currentUser._id)
-              ? "element__group-favorite_active"
-              : ""
-          }`}
+          className="element__group-button"
           onClick={handleLikeClick}
         >
-          <img className="element__group-image" alt="Избранное" src={like} />
+          <img
+            className={`element__group-favorite ${
+              card.likes.some((i) => i === currentUser._id)
+                ? "element__group-favorite_active"
+                : ""
+            }`}
+            alt="Избранное"
+            src={like}
+          />
         </button>
       </div>
       <span id="element__likes" className="element__likes">
