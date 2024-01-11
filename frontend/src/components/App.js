@@ -117,13 +117,15 @@ function App() {
 
   function handleCardLike(card) {
     // Снова проверяем, есть ли уже лайк на этой карточке
-    const isLiked = card.likes.some((i) => i === currentUser._id);
+    const isLiked = card.likes.some((i) => i._id === currentUser._id);
 
     // Отправляем запрос в API и получаем обновлённые данные карточки
     api
-      .changeLikeStatus(card, !isLiked)
+      .changeLikeStatus(card._id, !isLiked)
       .then((newCard) => {
-        setCards((state) => state.map((c) => (c === card ? newCard : c)));
+        setCards((state) =>
+          state.map((c) => (c._id === card._id ? newCard : c))
+        );
       })
       .catch((err) => {
         console.log("Ошибка: ", err);
@@ -132,9 +134,9 @@ function App() {
 
   function handleCardDelete(card) {
     api
-      .deleteCardApi(card)
+      .deleteCardApi(card._id)
       .then(() => {
-        setCards((prevState) => prevState.filter((c) => c !== card));
+        setCards((prevState) => prevState.filter((c) => c._id !== card._id));
         setIsDeleting(false);
       })
       .catch((err) => {
