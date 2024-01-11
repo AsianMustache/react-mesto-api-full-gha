@@ -54,7 +54,7 @@ function Card({ card, onCardClick, onCardLike, onDeletePopupClick }) {
         >
           <img
             className={`element__group-favorite ${
-              card.likes.some((i) => i === currentUser._id)
+              card.likes.some((i) => i._id === currentUser._id)
                 ? "element__group-favorite_active"
                 : ""
             }`}
