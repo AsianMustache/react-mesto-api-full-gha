@@ -83,6 +83,7 @@ function Card({ card, onCardClick, onCardLike, onDeletePopupClick }) {
   }
 
   const currentUser = useContext(CurrentUserContext);
+  console.log("Текущий пользователь:", currentUser);
 
   return (
     <article className="element">
