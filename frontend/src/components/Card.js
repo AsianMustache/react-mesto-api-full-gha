@@ -18,14 +18,14 @@ function Card({ card, onCardClick, onCardLike, onDeletePopupClick }) {
   }
 
   const currentUser = useContext(CurrentUserContext);
-  //   const isOwn = card.owner === currentUser._id;
-  //   const isLiked = card.likes.some((i) => i._id === currentUser._id);
-  //   const cardLikeButtonClassName = `element__group-favorite ${
-  //     isLiked ? "element__group-favorite_active" : ""
-  //   }`;
+  const isOwn = card.owner === currentUser._id;
+  const isLiked = card.likes.some((i) => i._id === currentUser._id);
+  const cardLikeButtonClassName = `element__group-favorite ${
+    isLiked ? "element__group-favorite_active" : ""
+  }`;
   return (
     <article className="element">
-      {card.owner === currentUser._id && (
+      {isOwn && (
         <button
           type="button"
           className="element__delete-button"
@@ -52,15 +52,7 @@ function Card({ card, onCardClick, onCardLike, onDeletePopupClick }) {
           className="element__group-button"
           onClick={handleLikeClick}
         >
-          <img
-            className={`element__group-favorite ${
-              card.likes.some((i) => i._id === currentUser._id)
-                ? "element__group-favorite_active"
-                : ""
-            }`}
-            alt="Избранное"
-            src={like}
-          />
+          <img className={cardLikeButtonClassName} alt="Избранное" src={like} />
         </button>
       </div>
       <span id="element__likes" className="element__likes">
