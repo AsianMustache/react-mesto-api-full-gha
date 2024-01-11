@@ -123,9 +123,7 @@ function App() {
     api
       .changeLikeStatus(card._id, !isLiked)
       .then((newCard) => {
-        setCards((state) =>
-          state.map((c) => (c._id === card._id ? newCard : c))
-        );
+        setCards((state) => state.map((c) => (c === card._id ? newCard : c)));
       })
       .catch((err) => {
         console.log("Ошибка: ", err);
@@ -136,7 +134,7 @@ function App() {
     api
       .deleteCardApi(card._id)
       .then(() => {
-        setCards((prevState) => prevState.filter((c) => c._id !== card._id));
+        setCards((prevState) => prevState.filter((c) => c !== card._id));
         setIsDeleting(false);
       })
       .catch((err) => {
