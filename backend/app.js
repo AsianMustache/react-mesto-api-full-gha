@@ -23,8 +23,8 @@ mongoose
     console.log("Ошибка подключения:", err.message);
   });
 
-app.use(requestLogger);
 app.use(cors);
+app.use(requestLogger);
 app.use(cookieParser());
 app.use(express.json());
 app.use("/", router);
