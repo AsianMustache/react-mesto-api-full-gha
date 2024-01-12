@@ -1,8 +1,8 @@
 const express = require("express");
-
 const cookieParser = require("cookie-parser");
 const mongoose = require("mongoose");
 const { errors: celebrateErrors } = require("celebrate");
+const { requestLogger, errorLogger } = require("./middlewares/logger");
 const router = require("./routes/index");
 const errorHandler = require("./middlewares/errors");
 const NotFoundError = require("./utils/NotFoundError");
@@ -23,6 +23,7 @@ mongoose
     console.log("Ошибка подключения:", err.message);
   });
 
+app.use(requestLogger);
 app.use(cors);
 app.use(cookieParser());
 app.use(express.json());
@@ -33,6 +34,7 @@ app.use("*", (req, res, next) => {
   next(new NotFoundError("Страница не найдена"));
 });
 
+app.use(errorLogger);
 app.use(celebrateErrors());
 app.use(errorHandler);
 

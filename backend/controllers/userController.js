@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 const http2 = require("http2");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const crypto = require("crypto");
 const User = require("../models/user");
 const BadRequestError = require("../utils/BadRequestError");
 const NotFoundError = require("../utils/NotFoundError");
@@ -12,6 +13,12 @@ exports.getAllUsers = async (req, res, next) => {
   try {
     const users = await User.find({});
     res.status(http2.constants.HTTP_STATUS_OK).json({ data: users });
+
+    const randomString = crypto
+      .randomBytes(16) // сгенерируем случайную последовательность 16 байт (128 бит)
+      .toString("hex"); // приведём её к строке
+
+    console.log(randomString);
   } catch (err) {
     next(err);
   }
