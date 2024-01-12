@@ -3,7 +3,7 @@ const BadRequestError = require("../utils/BadRequestError");
 const NotFoundError = require("../utils/NotFoundError");
 const UnauthorizedError = require("../utils/UnauthorizedError");
 const ForbiddenError = require("../utils/ForbiddenErrors");
-
+const ConflictError = require("../utils/ConflictError");
 // const MONGO_DUPLICATE_ERROR_CODE = 11000;
 
 // eslint-disable-next-line consistent-return, no-unused-vars
@@ -18,6 +18,10 @@ const errorHandler = (err, req, res, next) => {
         message: detail.message,
       })),
     });
+  }
+
+  if (err instanceof ConflictError) {
+    return res.status(err.statusCode).json({ message: err.message });
   }
 
   // Обработка ошибки дублирования email
