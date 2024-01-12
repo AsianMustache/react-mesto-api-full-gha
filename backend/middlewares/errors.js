@@ -4,7 +4,7 @@ const NotFoundError = require("../utils/NotFoundError");
 const UnauthorizedError = require("../utils/UnauthorizedError");
 const ForbiddenError = require("../utils/ForbiddenErrors");
 
-const MONGO_DUPLICATE_ERROR_CODE = 11000;
+// const MONGO_DUPLICATE_ERROR_CODE = 11000;
 
 // eslint-disable-next-line consistent-return, no-unused-vars
 const errorHandler = (err, req, res, next) => {
@@ -21,11 +21,11 @@ const errorHandler = (err, req, res, next) => {
   }
 
   // Обработка ошибки дублирования email
-  if (err.code === MONGO_DUPLICATE_ERROR_CODE) {
-    return res
-      .status(http2.constants.HTTP_STATUS_CONFLICT)
-      .json({ message: "Этот email уже используется" });
-  }
+  // if (err.code === MONGO_DUPLICATE_ERROR_CODE) {
+  //   return res
+  //     .status(http2.constants.HTTP_STATUS_CONFLICT)
+  //     .json({ message: "Этот email уже используется" });
+  // }
 
   // Обработка неверного токена
   if (err.name === "JsonWebTokenError") {

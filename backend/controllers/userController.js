@@ -8,6 +8,7 @@ const User = require("../models/user");
 const BadRequestError = require("../utils/BadRequestError");
 const NotFoundError = require("../utils/NotFoundError");
 const UnauthorizedError = require("../utils/UnauthorizedError");
+const ConflictError = require("../utils/ConflictError");
 
 // Получение всех пользователей
 exports.getAllUsers = async (req, res, next) => {
@@ -59,7 +60,13 @@ exports.createUser = async (req, res, next) => {
       avatar: newUser.avatar,
     });
   } catch (err) {
-    next(err);
+    if (err.code === 11000) {
+      next(new ConflictError("Пользователь с таким email уже существует"));
+    } else if (err.name === "ValidationError") {
+      next(new BadRequestError("Неверный формат входных данных"));
+    } else {
+      next(err);
+    }
   }
 };
 
@@ -69,10 +76,14 @@ exports.updateProfile = async (req, res, next) => {
       req.user._id,
       { $set: req.body },
       { new: true, runValidators: true }
-    ).orFail(new Error("Запрашиваемый пользователь не найден"));
+    ).orFail(() => new NotFoundError("Данных с указанным id не существует"));
     res.status(http2.constants.HTTP_STATUS_OK).json(updatedUser);
   } catch (err) {
-    next(err);
+    if (err.name === "ValidationError") {
+      next(new BadRequestError("Неверный формат входных данных"));
+    } else {
+      next(err);
+    }
   }
 };
 
@@ -83,10 +94,14 @@ exports.updateAvatar = async (req, res, next) => {
       req.user._id,
       { avatar: req.body.avatar },
       { new: true, runValidators: true }
-    ).orFail(new Error("Запрашиваемый пользователь не найден"));
+    ).orFail(() => new NotFoundError("Данных с указанным id не существует"));
     res.status(http2.constants.HTTP_STATUS_OK).json(updatedUser);
   } catch (err) {
-    next(err);
+    if (err.name === "ValidationError") {
+      next(new BadRequestError("Неверный формат входных данных"));
+    } else {
+      next(err);
+    }
   }
 };
 
