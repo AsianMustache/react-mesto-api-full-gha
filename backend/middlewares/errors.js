@@ -20,10 +20,6 @@ const errorHandler = (err, req, res, next) => {
     });
   }
 
-  if (err instanceof ConflictError) {
-    return res.status(err.statusCode).json({ message: err.message });
-  }
-
   // Обработка ошибки дублирования email
   // if (err.code === MONGO_DUPLICATE_ERROR_CODE) {
   //   return res
@@ -50,6 +46,9 @@ const errorHandler = (err, req, res, next) => {
     return res.status(err.status || 500).json({ message: err.message });
   }
   if (err instanceof ForbiddenError) {
+    return res.status(err.status || 500).json({ message: err.message });
+  }
+  if (err instanceof ConflictError) {
     return res.status(err.status || 500).json({ message: err.message });
   }
 
