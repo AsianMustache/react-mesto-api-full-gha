@@ -1,4 +1,6 @@
 const express = require("express");
+// eslint-disable-next-line import/no-extraneous-dependencies
+require("dotenv").config();
 const cookieParser = require("cookie-parser");
 const mongoose = require("mongoose");
 const { errors: celebrateErrors } = require("celebrate");

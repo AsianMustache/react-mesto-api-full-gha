@@ -1,4 +1,6 @@
 const mongoose = require("mongoose");
+// eslint-disable-next-line import/no-extraneous-dependencies
+require("dotenv").config();
 const http2 = require("http2");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
@@ -102,9 +104,13 @@ exports.login = async (req, res, next) => {
       throw new UnauthorizedError("Неверные почта или пароль");
     }
 
-    const token = jwt.sign({ _id: user._id }, "dev_secret", {
-      expiresIn: "7d",
-    });
+    const token = jwt.sign(
+      { _id: user._id },
+      NODE_ENV === "production" ? JWT_SECRET : "dev-secret",
+      {
+        expiresIn: "7d",
+      }
+    );
 
     res.cookie("jwt", token, {
       maxAge: 3600000 * 24 * 7,
