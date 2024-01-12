@@ -93,6 +93,7 @@ exports.updateAvatar = async (req, res, next) => {
 exports.login = async (req, res, next) => {
   try {
     const { email, password } = req.body;
+    const { NODE_ENV, JWT_SECRET } = process.env;
 
     const user = await User.findOne({ email }).select("+password");
     if (!user) {
