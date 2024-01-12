@@ -118,12 +118,6 @@ exports.login = async (req, res, next) => {
       httpOnly: true,
       sameSite: true,
     });
-
-    // res.status(http2.constants.HTTP_STATUS_OK).send({
-    //   data: { email: user.email, id: user._id },
-    //   token,
-    //   message: "Аутентификация прошла успешно",
-    // });
     res
       .status(http2.constants.HTTP_STATUS_OK)
       .send({ token, email: user.email, id: user._id });
